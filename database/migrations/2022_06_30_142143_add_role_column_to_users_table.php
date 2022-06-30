@@ -13,16 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('fichiers', function (Blueprint $table) {
-            $table->id();
-            $table->string('chemin');
-            $table->timestamps();
-            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->engine='InnoDB';
-            
-            
+        Schema::table('users', function (Blueprint $table) {
+            $table->enum('role', ['admin', 'user'])->default('user');
         });
-        
     }
 
     /**
@@ -32,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fichiers');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };

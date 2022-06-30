@@ -13,16 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('fichiers', function (Blueprint $table) {
+        Schema::create('produits', function (Blueprint $table) {
             $table->id();
-            $table->string('chemin');
+            $table->bigInteger('code')->unique();
+            $table->string('label');
+            $table->text('description');
+            $table->string('support');
+            $table->string('management');
+            $table->date('dateP');
+            $table->foreignId('fichier_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
-            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->engine='InnoDB';
-            
-            
         });
-        
     }
 
     /**
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fichiers');
+        Schema::dropIfExists('produits');
     }
 };
